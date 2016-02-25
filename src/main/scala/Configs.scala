@@ -108,6 +108,7 @@ class DefaultConfig extends Config (
       case RowBits => findBy(CacheName)
       case NTLBEntries => findBy(CacheName)
       case CacheIdBits => findBy(CacheName)
+      case SplitMetadata => findBy(CacheName)
       case ICacheBufferWays => Knob("L1I_BUFFER_WAYS")
       case "L1I" => {
         case NSets => Knob("L1I_SETS") //64
@@ -115,6 +116,7 @@ class DefaultConfig extends Config (
         case RowBits => 4*site(CoreInstBits)
         case NTLBEntries => 8
         case CacheIdBits => 0
+	case SplitMetadata => false
       }:PF
       case "L1D" => {
         case NSets => Knob("L1D_SETS") //64
@@ -122,6 +124,7 @@ class DefaultConfig extends Config (
         case RowBits => 2*site(CoreDataBits)
         case NTLBEntries => 8
         case CacheIdBits => 0
+	case SplitMetadata => false
       }:PF
       case ECCCode => None
       case Replacer => () => new RandomReplacement(site(NWays))
@@ -292,6 +295,7 @@ class WithL2Cache extends Config(
       case NWays => Knob("L2_WAYS")
       case RowBits => site(TLKey(site(TLId))).dataBitsPerBeat
       case CacheIdBits => log2Ceil(site(NMemoryChannels) * site(NBanksPerMemoryChannel))
+      case SplitMetadata => Knob("L2_SPLIT_METADATA")
     }: PartialFunction[Any,Any] 
     case NAcquireTransactors => 2
     case NSecondaryMisses => 4
@@ -304,7 +308,7 @@ class WithL2Cache extends Config(
         case OuterTLId => "L2toMC"})))
     case L2Replacer => () => new SeqRandom(site(NWays))
   },
-  knobValues = { case "L2_WAYS" => 8; case "L2_CAPACITY_IN_KB" => 2048 }
+  knobValues = { case "L2_WAYS" => 8; case "L2_CAPACITY_IN_KB" => 2048; case "L2_SPLIT_METADATA" => false }
 )
 
 class WithPLRU extends Config(
@@ -446,3 +450,7 @@ class WithOneOrMaxChannels extends Config(
 )
 
 class OneOrEightChannelBenchmarkConfig extends Config(new WithOneOrMaxChannels ++ new With8MemoryChannels ++ new SingleChannelBenchmarkConfig)
+
+class WithSplitL2Metadata extends Config(knobValues = { case "L2_SPLIT_METADATA" => true })
+
+class SplitL2MetadataTestConfig extends Config(new WithSplitL2Metadata ++ new DefaultL2Config)
