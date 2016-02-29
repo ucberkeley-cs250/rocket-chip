@@ -12,7 +12,8 @@
 	url = https://github.com/ucb-bar/rocket.git
 [submodule "chisel"]
 	path = chisel
-	url = https://github.com/ucb-bar/chisel.git
+    url = git@github.com:ucberkeley-cs250/chisel.git
+    branch = sha3-chisel
 [submodule "hardfloat"]
 	path = hardfloat
 	url = https://github.com/ucb-bar/berkeley-hardfloat.git
@@ -27,7 +28,8 @@
 	url = https://github.com/ucb-bar/junctions
 [submodule "context-dependent-environments"]
 	path = context-dependent-environments
-	url = https://github.com/ucb-bar/context-dependent-environments
+    url = git@github.com:ucberkeley-cs250/context-dependent-environments.git
+    branch = sha3-cde
 [submodule "groundtest"]
 	path = groundtest
 	url = https://github.com/ucb-bar/groundtest.git
