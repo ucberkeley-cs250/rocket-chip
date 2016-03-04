@@ -14,7 +14,9 @@ SBT := java -Xmx2048M -Xss8M -XX:MaxPermSize=256M -jar sbt-launch.jar
 #SBT := sbt
 SHELL := /bin/bash
 
-CHISEL_ARGS := $(PROJECT) $(MODEL) $(CONFIG) --W0W --minimumCompatibility 3.0.0 --backend $(BACKEND) --configName $(CONFIG) --compileInitializationUnoptimized --targetDir $(generated_dir)
+#CHISEL_ARGS := $(PROJECT) $(MODEL) $(CONFIG) --W0W --minimumCompatibility 3.0.0 --backend $(BACKEND) --configName $(CONFIG) --compileInitializationUnoptimized --targetDir $(generated_dir)
+
+CHISEL_ARGS := $(PROJECT) $(MODEL) $(CONFIG) --W0W --backend $(BACKEND) --configName $(CONFIG) --compileInitializationUnoptimized --targetDir $(generated_dir)
 
 src_path = src/main/scala
 default_submodules = . junctions uncore hardfloat rocket zscale groundtest context-dependent-environments
