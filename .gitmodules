@@ -37,3 +37,7 @@
 [submodule "dev-tools/axe"]
 	path = dev-tools/axe
 	url = https://github.com/CTSRD-CHERI/axe.git
+[submodule "vlsi"]
+	path = vlsi
+	url = git@github.com:ucberkeley-cs250/vlsi.git
+	branch = cs250-vlsi-rocket
